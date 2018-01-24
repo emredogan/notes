@@ -24,9 +24,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
     public class MainActivity extends AppCompatActivity {
 
         ListView listView;
+
+        private AdView mAdView;
 
         static ArrayList<String> notes = new ArrayList<String>();
         static ArrayAdapter arrayAdapter;
@@ -37,6 +43,16 @@ import java.util.HashSet;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        mAdView.loadAd(adRequest);
+
+
+
 
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_PHONE_STATE)) {
